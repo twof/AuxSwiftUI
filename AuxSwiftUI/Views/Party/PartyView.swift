@@ -9,29 +9,51 @@
 import SwiftUI
 import Combine
 
+class AppState: BindableObject {
+    var didChange = PassthroughSubject<Void, Never>()
+    var isPlaying: Bool = false {
+        didSet {
+            self.didChange.send(())
+        }
+    }
+    var tracks: [Track] = [] {
+        didSet {
+            self.didChange.send(())
+        }
+    }
+    var currentTrack: Track? = nil {
+        didSet {
+            self.didChange.send(())
+        }
+    }
+}
+
 struct PartyView: View {
-    @State var isPlaying: Bool
-    @State var tracks: [Track]
-    @State var currentTrack: Track? 
+    @ObjectBinding var appState: AppState
+    
+    init(tracks: [Track]) {
+        self.appState = AppState()
+        self.appState.tracks = tracks
+    }
     
     var body: some View {
         VStack {
             PlayerView(
-                isPlaying: $isPlaying,
-                currentTrack: $currentTrack,
+                isPlaying: self.$appState.isPlaying,
+                currentTrack: self.$appState.currentTrack,
                 skipAction: {
                     guard
-                        let newCurrent = self.tracks.first
+                        let newCurrent = self.appState.tracks.first
                     else { return }
-                    self.currentTrack = newCurrent
+                    self.appState.currentTrack = newCurrent
                     print("remove")
-                    self.tracks.remove(at: 0)
+                    self.appState.tracks.remove(at: 0)
                     print("pass")
                 }, playPauseAction: {
                     print("play")
                 }
             )
-            Playlist(tracks: $tracks)
+            Playlist(tracks: self.$appState.tracks)
         }
     }
 }

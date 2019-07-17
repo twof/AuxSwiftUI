@@ -14,7 +14,9 @@ struct Playlist: View {
     var body: some View {
         List {
             ForEach(0..<tracks.count) { index in
+                //
                 TrackRow(track: self.$tracks[index])
+                //
             }
         }
     }
