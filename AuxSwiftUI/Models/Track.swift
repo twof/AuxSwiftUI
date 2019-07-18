@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct Track: Hashable {
+struct Track: Hashable, Identifiable {
+    var id: Int
+    
     let name: String
     let artist: String
     let album: String

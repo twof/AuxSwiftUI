@@ -10,11 +10,11 @@ import SwiftUI
 
 struct Playlist: View {
     @Binding var tracks: [Track]
-    
+
     var body: some View {
         List {
-            ForEach(0..<tracks.count) { index in
-                TrackRow(track: self.$tracks[index])
+            ForEach(self.$tracks.map { $0 }) { (track) -> TrackRow in
+                TrackRow(track: track)
             }
         }
     }
