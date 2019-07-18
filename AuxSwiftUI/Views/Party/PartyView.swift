@@ -54,6 +54,7 @@ struct PartyView: View {
                     print("play")
                 }
             )
+//            TrackRow(track: self.$state.tracks[0])
             Playlist(tracks: self.$state.tracks)
         }
     }

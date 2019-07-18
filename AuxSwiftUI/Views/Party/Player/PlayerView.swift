@@ -22,9 +22,9 @@ struct PlayerView: View {
                     Image(systemName: "arrow.right.to.line")
                 }
             }
-//            currentTrack.map { Text($0.name) }
-//            currentTrack.map { Text($0.artist) }
-//            currentTrack.map { Text($0.album) }
+            currentTrack.map { Text($0.name) }
+            currentTrack.map { Text($0.artist) }
+            currentTrack.map { Text($0.album) }
         }
     }
 }
